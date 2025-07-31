@@ -157,7 +157,6 @@ class CreateUserRequest(BaseModel):
             }
     }   
   
-
 @router.post("/", status_code=status.HTTP_201_CREATED) 
 async def create_user(db: db_dependency, create_user_request: CreateUserRequest):
     create_user_model = Users(
