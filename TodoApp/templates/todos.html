@@ -1,0 +1,47 @@
+{% include "layout.html" %}
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <div class="card bg-white shadow-lg rounded-lg">
+            <div class="card-header bg-blue-500 text-white p-4 rounded-t-lg">
+                <h1 class="text-2xl font-bold">Your Todos</h1>
+            </div>
+            <div class="card-body p-4">
+                <div class="card-title">
+                    <h2 class="text-xl font-semibold">Your Todos</h2>
+                </div>
+                <div class="card-text text-gray-600 mb-4">
+                    Information regarding stuff that needs to be completed
+                </div>
+                <a href="/todos/add-todo-page" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-green-600 mb-4 mt-8">Add a new todo</a>
+                <table class="w-full table-auto border-collapse hover:shadow-md">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2 text-left">#</th>
+                            <th class="px-4 py-2 text-left">Info</th>
+                            <th class="px-4 py-2 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if not todos %}
+                        <tr>
+                            <td colspan="3" class="px-4 py-2 text-center text-gray-500">No todos found</td>
+                        </tr>
+                        {% else %}
+                        {% for todo in todos %}
+                        <tr class="{% if todo.complete %}text-indigo-600 line-through{% else %}hover:bg-gray-50{% endif %}">
+                            <td class="px-4 py-2">{{ loop.index }}</td>
+                            <td class="px-4 py-2">{{ todo.title }}</td>
+                            <td class="px-4 py-2">
+                                <a href="edit-todo-page/{{ todo.id }}" class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-blue-600">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{{ url_for('static', path='/js/todos.js') }}" defer></script>

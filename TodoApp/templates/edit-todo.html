@@ -1,0 +1,44 @@
+{% include "layout.html" %}
+
+<div class="container mx-auto p-4">
+    <div class="card bg-white shadow-lg rounded-lg">
+        <div class="card-header bg-blue-500 text-white p-4 rounded-t-lg">
+            <h1 class="text-2xl font-bold">Edit To-Do</h1>
+        </div>
+        <div class="card-body p-4">
+            <form id="editTodoForm" action="/todos/edit-todo/{{ todo.id }}">
+                <div class="form-group mb-4">
+                    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                    <input type="text" id="title" name="title" value="{{ todo.title }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea id="description" name="description" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">{{ todo.description }}</textarea>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
+                    <select id="priority" name="priority" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="1" {% if todo.priority == 1 %}selected{% endif %}>1</option>
+                        <option value="2" {% if todo.priority == 2 %}selected{% endif %}>2</option>
+                        <option value="3" {% if todo.priority == 3 %}selected{% endif %}>3</option>
+                        <option value="4" {% if todo.priority == 4 %}selected{% endif %}>4</option>
+                        <option value="5" {% if todo.priority == 5 %}selected{% endif %}>5</option>
+                    </select>
+                </div>
+                <div class="form-group form-check mb-4">
+                    <input type="checkbox" id="complete" name="complete" class="form-check-input" {% if todo.complete %}checked{% endif %}>
+                    <label for="complete" class="form-check-label text-sm font-medium text-gray-700">Complete</label>
+                </div>
+                <div class="form-group form-check mb-4">
+                    <input type="checkbox" id="archive" name="archive" class="form-check-input" {% if todo.archive %}checked{% endif %}>
+                    <label for="archive" class="form-check-label text-sm font-medium text-gray-700">Archive</label>
+                </div>
+                <div class="flex justify-between items-center">
+                    <a href="/todos/todo-page" class="text-blue-600 hover:text-blue-800">Back</a>
+                    <button id="deleteButton" type="button" data-todo-id="{{ todo.id }}" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700">Delete your todo</button>                    <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">Edit your todo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', path='/js/editTodoForm.js') }}" defer></script>
